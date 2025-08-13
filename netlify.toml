@@ -1,7 +1,11 @@
 [build]
-  command = "npm run build:client"
+  command = "npm install --legacy-peer-deps && npm run build:client"
   functions = "netlify/functions"
   publish = "dist/spa"
+
+[build.environment]
+  NODE_VERSION = "18.17.0"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 
 [functions]
@@ -13,3 +17,8 @@
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
